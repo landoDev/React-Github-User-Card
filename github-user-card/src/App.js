@@ -5,7 +5,8 @@ import './App.css';
 
 class App extends React.Component {
   state = {
-    landoData: []
+    landoData: [],
+    followerData: []
   };
 
 
@@ -15,9 +16,15 @@ class App extends React.Component {
       //response.data
       this.setState({
         landoData: response.data
-      });
-      console.log('data', this.state.landoData)
-    } );
+      }); 
+    })
+    .then(axios.get('https://api.github.com/users/landoDev/followers')
+      .then(response=> {
+        // console.log(response)
+        this.setState({
+          followerData: response.data
+        })
+      }));
     
   }
   render(){
@@ -33,8 +40,22 @@ class App extends React.Component {
           <label>URL: 
             <a href={this.state.landoData.html_url}>{this.state.landoData.html_url}</a>
           </label>
-
-
+        </div>
+        <div>
+          {this.state.followerData.map(follower => {
+            return(
+              <div key={follower.id}>
+              <h2>{follower.name}</h2>
+              <img src={follower.avatar_url}></img>
+              <p>{follower.location}</p>
+              <p>{follower.bio}</p>
+              <p>Username: {follower.login}</p>
+              <label>URL: 
+                <a href={follower.html_url}>{follower.html_url}</a>
+              </label>
+            </div>
+            );
+          })}
         </div>
         
       </div>
