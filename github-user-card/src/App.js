@@ -10,6 +10,7 @@ class App extends React.Component {
 
   componentDidMount() {
     axios.get('https://api.github.com/users/landoDev')
+    .then(response => console.log(response))
   }
   render(){
     return (
