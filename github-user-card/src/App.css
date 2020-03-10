@@ -37,3 +37,7 @@
   }
 }
 
+h1, h2, p{
+  color: #FFFFFF;
+  text-shadow: 2px 0 2px #BC1E22;
+}
