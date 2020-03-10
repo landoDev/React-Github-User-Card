@@ -63,7 +63,7 @@ const FollowersDiv = styled.div`
 class App extends React.Component {
   state = {
     landoData: [],
-    followerData: []
+    followerData: [],
   };
 
 
@@ -94,16 +94,25 @@ class App extends React.Component {
           <p>{this.state.landoData.location}</p>
           <p>{this.state.landoData.bio}</p>
           <p>Username: {this.state.landoData.login}</p>
-          <label>URL: 
-            <a href={this.state.landoData.html_url}>{this.state.landoData.html_url}</a>
-          </label>
+          <a href={this.state.landoData.html_url}>{this.state.landoData.html_url}</a>
         </div>
         <div className='followers'>
           {this.state.followerData.map(follower => {
+            // const nameArray = []
+            let followerName = {
+              alias: ''
+            }
+            axios.get(`${follower.url}`)
+            .then(response=>{
+              // console.log('mapped data',response.data)
+              // nameArray.push(response.data.name)
+              return followerName.alias = response.data.name;
+            })
+            console.log('name', followerName)
             return(
               <div key={follower.id} className='user-card'>
-              <h2>{follower.name}</h2>
-              <img src={follower.avatar_url}></img>
+              <h2>{followerName.alias}</h2>
+              <img src={follower.avatar_url} alt='avatar'></img>
               <p>{follower.location}</p>
               <p>{follower.bio}</p>
               <p>Username: {follower.login}</p>
